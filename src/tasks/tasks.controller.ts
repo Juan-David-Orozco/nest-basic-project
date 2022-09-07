@@ -1,13 +1,23 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Req, Res } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto'
+import { TasksService } from "./tasks.service";
+import { Task } from "./interfaces/Task";
+import { Request, Response } from 'express'
 
 @Controller('tasks')
 export class TasksController {
+  constructor(private readonly taskService: TasksService) {} // El servicio se debe instanciar para usarse
 
   @Get()
-  gesTasks(): {hello: string} {
-    //return "Retrieving Tasks";
-    return {"hello": "world"};
+  getTasks(): Task[] {
+    return this.taskService.getTasks()
+  }
+  // Se pueden manejar con express directamente (Ejemplo)
+  //getTasks(@Req() req: Request, @Res() res: Response) {return res.send("Hello World")}
+
+  @Get(':id')
+  getTask(@Param('id') id: string): Task {
+    return this.taskService.getTask(parseInt(id))
   }
 
   @Post()
