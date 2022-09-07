@@ -8,6 +8,7 @@ import { Request, Response } from 'express'
 export class TasksController {
   constructor(private readonly taskService: TasksService) {} // El servicio se debe instanciar para usarse
 
+  /*
   @Get()
   getTasks(): Task[] {
     return this.taskService.getTasks()
@@ -19,6 +20,7 @@ export class TasksController {
   getTask(@Param('id') id: string): Task {
     return this.taskService.getTask(parseInt(id))
   }
+  */
 
   @Post()
   createTask(@Body() task: CreateTaskDto): string {
