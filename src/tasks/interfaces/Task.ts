@@ -1,7 +1,7 @@
-//import { Document } from "mongoose";
+import { Document } from "mongoose";
 
-export interface Task {
-  id?: number,
+export interface Task extends Document {
+  id?: number;
   title: string;
   description: string;
   done: boolean;

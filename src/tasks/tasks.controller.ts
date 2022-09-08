@@ -8,24 +8,21 @@ import { Request, Response } from 'express'
 export class TasksController {
   constructor(private readonly taskService: TasksService) {} // El servicio se debe instanciar para usarse
 
-  /*
   @Get()
-  getTasks(): Task[] {
+  getTasks(): Promise<Task[]> {
     return this.taskService.getTasks()
   }
   // Se pueden manejar con express directamente (Ejemplo)
   //getTasks(@Req() req: Request, @Res() res: Response) {return res.send("Hello World")}
 
   @Get(':id')
-  getTask(@Param('id') id: string): Task {
-    return this.taskService.getTask(parseInt(id))
+  getTask(@Param('id') id: string): Promise<Task> {
+    return this.taskService.getTask(id)
   }
-  */
 
   @Post()
-  createTask(@Body() task: CreateTaskDto): string {
-    console.log(task)
-    return "Creating Task";
+  createTask(@Body() task: CreateTaskDto): Promise<Task> {
+    return this.taskService.createTask(task)
   }
 
   @Delete(':id')
