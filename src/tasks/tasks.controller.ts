@@ -6,12 +6,14 @@ import { Request, Response } from 'express'
 
 @Controller('tasks')
 export class TasksController {
+
   constructor(private readonly taskService: TasksService) {} // El servicio se debe instanciar para usarse
 
   @Get()
   getTasks(): Promise<Task[]> {
     return this.taskService.getTasks()
   }
+
   // Se pueden manejar con express directamente (Ejemplo)
   //getTasks(@Req() req: Request, @Res() res: Response) {return res.send("Hello World")}
 
@@ -26,15 +28,13 @@ export class TasksController {
   }
 
   @Delete(':id')
-  deleteTask(@Param('id') id): string {
-    console.log(id)
-    return `Deleting Task ${id}`
+  deleteTask(@Param('id') id: string): Promise<Task> {
+    return this.taskService.deleteTask(id)
   }
 
   @Put(':id')
-  updateTask(@Body() task: CreateTaskDto, @Param('id') id): string {
-    console.log(task)
-    return `Updating Task ${id}`
+  updateTask(@Body() task: CreateTaskDto, @Param('id') id: string): Promise<Task> {
+    return this.taskService.updateTask(id, task)
   }
 
 }
